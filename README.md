@@ -9,19 +9,19 @@
 
 
 
-1. Launch your Virtual Machine with your Udacity account.
-⋅⋅*Create AWS Remove Server via Udacity account interface
-⋅⋅*Download Private Key
-⋅⋅*Move the private key file into the folder '~/.ssh' (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
-'mv ~/Downloads/udacity_key.rsa ~/.ssh/'
-⋅⋅*Open your terminal and type in
-'chmod 600 ~/.ssh/udacity_key.rsa'
+##1. Launch your Virtual Machine with your Udacity account.
+  *Create AWS Remove Server via Udacity account interface
+  *Download Private Key
+  *Move the private key file into the folder '~/.ssh' (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
+```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
+  *Open your terminal and type in
+```chmod 600 ~/.ssh/udacity_key.rsa```
 
-2. Follow the instructions provided to SSH into your server
-⋅⋅*'ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129'
+##2. Follow the instructions provided to SSH into your server
+  *```ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129```
 
-3. Create a new user named grader
-⋅⋅*'sudo adduser grader'
+##3. Create a new user named grader
+  *```sudo adduser grader```
 
 
 3. Give the grader the permission to sudo
