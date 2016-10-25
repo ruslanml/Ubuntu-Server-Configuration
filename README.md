@@ -1,27 +1,21 @@
 #LINUX SERVER VM CONFIGURATION#
 
-
-
-
-
-
-
-
-
+>Public IP Address
+>35.160.225.160
 
 ###1. Launch your Virtual Machine with your Udacity account.
-1. Create AWS Remove Server via Udacity account interface
+1. Create AWS Remote Server via Udacity account interface
 2. Download Private Key
 3. Move the private key file into the folder `~/.ssh` (where ~ is your environment's home directory).
-```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
+  * ```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
 4. Open your terminal and type in
-```chmod 600 ~/.ssh/udacity_key.rsa```
+  * ```chmod 600 ~/.ssh/udacity_key.rsa```
 
-###2. Follow the instructions provided to SSH into your server
-```ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129```
+###2. SSH into your server
+  1. ```ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129```
 
 ###3. Create a new user named grader
-```sudo adduser grader```
+  1. ```sudo adduser grader```
 
 ###4. Give the grader the permission to sudo
   1. ```sudo cat /etc/sudoers```
@@ -39,41 +33,43 @@
 
 ###7. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
   1. Check if the firewall is active or inactive
-  ```sudo ufw status```
+   * ```sudo ufw status```
   2. Close all incoming ports
-  ```sudo ufw default deny incoming```
+   * ```sudo ufw default deny incoming```
   3. Allow all outgoing ports
-  ```sudo ufw default allow outgoing```
+   * ```sudo ufw default allow outgoing```
   4. Allow ssh port
-  ```sudo ufw allow ssh```
+   * ```sudo ufw allow ssh```
   5. Allow http port
-  ```sudo ufw allow www```
+   * ```sudo ufw allow www```
   6. Allow ntp port
-  ```sudo ufw allow ntp```
+   * ```sudo ufw allow ntp```
   7. Enable the firewall
-  ```sudo ufw enable```
+   * ```sudo ufw enable```
 ###8. Configure the local timezone to UTC
   1. Type:
-  ```sudo dpkg-reconfigure tzdata```
+   * ```sudo dpkg-reconfigure tzdata```
   2. Go to "Etc" or "None of the above" 
   3. Choose UTC and enter
 
 ###9. Install and configure Apache to serve a Python mod_wsgi application
   1. ```sudo apt-get install apache2```
-  2. Apache, by default, serves its files from the /var/www/html directory.
-  3. ```sudo apt-get install libapache2-mod-wsgi```
+  2. ```sudo apt-get install libapache2-mod-wsgi```
 
-10. Install and configure PostgreSQL:
-  * Do not allow remote connections
-  * Create a new user named catalog that has limited permissions to your catalog application database
-11. Install git, clone and setup your Catalog App project so that it functions correctly when visiting your server’s IP address in a browser.
+###10. Install and configure PostgreSQL:
+  1. ```sudo apt-get install postgresql```
+  2. ```sudo su - postgres```
+  3. ```psql```
+  4. ```CREATE ROLE catalog WITH login;```
+  5. ```CREATE DATABASE catalog WITH OWNER catalog;```
+
+###11. Install git, clone and setup your Catalog App project so that it functions correctly when visiting your server’s IP address in a browser.
+  1. ```sudo apt-get install git```
+  2. ```cd /var/www/html```
+  3. ```git clone https://github.com/ruslanml/Udacity-Catalog-Project.git```
+  4. ```sudo apache2ctl restart```
 
 
-**Public IP Address
-
-35.160.225.160
-
-**Private Key
 
 
 **Create a new user named grader
