@@ -9,31 +9,64 @@
 
 
 
-##1. Launch your Virtual Machine with your Udacity account.
-  *Create AWS Remove Server via Udacity account interface
-  *Download Private Key
-  *Move the private key file into the folder '~/.ssh' (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
+###1. Launch your Virtual Machine with your Udacity account.
+1. Create AWS Remove Server via Udacity account interface
+2. Download Private Key
+3. Move the private key file into the folder `~/.ssh` (where ~ is your environment's home directory).
 ```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
-  *Open your terminal and type in
+4. Open your terminal and type in
 ```chmod 600 ~/.ssh/udacity_key.rsa```
 
-##2. Follow the instructions provided to SSH into your server
-  *```ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129```
+###2. Follow the instructions provided to SSH into your server
+```ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129```
 
-##3. Create a new user named grader
-  *```sudo adduser grader```
+###3. Create a new user named grader
+```sudo adduser grader```
 
+###4. Give the grader the permission to sudo
+  1. ```sudo cat /etc/sudoers```
+  2. ```sudo ls /etc/sudoers.d```
+  3. ```sudo nano  /etc/sudoers.d/grader```
+  4. Add `grader ALL=(ALL) NOPASSWD:ALL` to the grader file to give the user sudo permission.
 
-3. Give the grader the permission to sudo
-Update all currently installed packages
-Change the SSH port from 22 to 2200
-Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
-Configure the local timezone to UTC
-Install and configure Apache to serve a Python mod_wsgi application
-Install and configure PostgreSQL:
-Do not allow remote connections
-Create a new user named catalog that has limited permissions to your catalog application database
-Install git, clone and setup your Catalog App project (from your GitHub repository from earlier in the Nanodegree program) so that it functions correctly when visiting your server’s IP address in a browser. Remember to set this up appropriately so that your .git directory is not publicly accessible via a browser!
+###5. Update all currently installed packages
+  1. ```sudo apt-get update```
+  2. ```sudo apt-get upgrade```
+
+###6. Change the SSH port from 22 to 2200
+  1. ```sudo nano /etc/ssh/sshd_config```
+  2. Change Port to 2200
+
+###7. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+  1. Check if the firewall is active or inactive
+  ```sudo ufw status```
+  2. Close all incoming ports
+  ```sudo ufw default deny incoming```
+  3. Allow all outgoing ports
+  ```sudo ufw default allow outgoing```
+  4. Allow ssh port
+  ```sudo ufw allow ssh```
+  5. Allow http port
+  ```sudo ufw allow www```
+  6. Allow ntp port
+  ```sudo ufw allow ntp```
+  7. Enable the firewall
+  ```sudo ufw enable```
+###8. Configure the local timezone to UTC
+  1. Type:
+  ```sudo dpkg-reconfigure tzdata```
+  2. Go to "Etc" or "None of the above" 
+  3. Choose UTC and enter
+
+###9. Install and configure Apache to serve a Python mod_wsgi application
+  1. ```sudo apt-get install apache2```
+  2. Apache, by default, serves its files from the /var/www/html directory.
+  3. ```sudo apt-get install libapache2-mod-wsgi```
+
+10. Install and configure PostgreSQL:
+  * Do not allow remote connections
+  * Create a new user named catalog that has limited permissions to your catalog application database
+11. Install git, clone and setup your Catalog App project so that it functions correctly when visiting your server’s IP address in a browser.
 
 
 **Public IP Address
