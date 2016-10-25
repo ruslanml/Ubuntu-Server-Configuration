@@ -1,19 +1,47 @@
 #LINUX SERVER VM CONFIGURATION#
 
+
+
+
+
+
+
+
+
+
+1. Launch your Virtual Machine with your Udacity account.
+⋅⋅*Create AWS Remove Server via Udacity account interface
+⋅⋅*Download Private Key
+⋅⋅*Move the private key file into the folder '~/.ssh' (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
+'mv ~/Downloads/udacity_key.rsa ~/.ssh/'
+⋅⋅*Open your terminal and type in
+'chmod 600 ~/.ssh/udacity_key.rsa'
+
+2. Follow the instructions provided to SSH into your server
+⋅⋅*'ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129'
+
+3. Create a new user named grader
+⋅⋅*'sudo adduser grader'
+
+
+3. Give the grader the permission to sudo
+Update all currently installed packages
+Change the SSH port from 22 to 2200
+Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+Configure the local timezone to UTC
+Install and configure Apache to serve a Python mod_wsgi application
+Install and configure PostgreSQL:
+Do not allow remote connections
+Create a new user named catalog that has limited permissions to your catalog application database
+Install git, clone and setup your Catalog App project (from your GitHub repository from earlier in the Nanodegree program) so that it functions correctly when visiting your server’s IP address in a browser. Remember to set this up appropriately so that your .git directory is not publicly accessible via a browser!
+
+
 **Public IP Address
 
 35.160.225.160
 
 **Private Key
 
-1.Create Remove Server
-2.Download Private Key
-3.Move the private key file into the folder ~/.ssh (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
-***mv ~/Downloads/udacity_key.rsa ~/.ssh/***
-4.Open your terminal and type in
-***chmod 600 ~/.ssh/udacity_key.rsa***
-5. In your terminal, type in
-***ssh -i ~/.ssh/udacity_key.rsa root@35.161.147.129***
 
 **Create a new user named grader
 ***sudo adduser grader***
