@@ -1,7 +1,8 @@
 #LINUX SERVER VM CONFIGURATION#
 
->Public IP Address:
->35.161.147.129
+>Public IP Address: 35.161.147.129
+>SSH Port: 2200
+>Public URL: http://35.161.147.129
 
 ###1. Launch your Virtual Machine with your Udacity account.
   1. Create AWS Remote Server via Udacity account interface
