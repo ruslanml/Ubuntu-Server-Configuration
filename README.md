@@ -22,8 +22,25 @@
   1. ```sudo cat /etc/sudoers```
   2. ```sudo ls /etc/sudoers.d```
   3. ```sudo nano  /etc/sudoers.d/grader```
-  4. Add `grader ALL=(ALL) NOPASSWD:ALL` to the grader file to give the user sudo permission.
-  5. To enforce key based authentication, type `sudo nano /etc/ssh/sshd_config` and make sure the `PasswordAuthentication` line is set to no and restart the ssh server by typing `sudo service ssh restart`
+  4. Add `grader ALL=(ALL) ALL` to the grader file to give the user sudo permission
+  5. Set a secure password for grader: `sudo passwd grader`
+  6. Configure the key-based authentication for grader
+   * Generate an encryption key on your local machine: `ssh-keygen -f ~/Desktop/udacity_key.rsa`
+   * Login as grader: `su grader`
+   * Create .ssh directory: `mkdir ~/.ssh`
+   * Create authorized_keys file for grader on the remote server: `nano /home/grader/.ssh/authorized_keys`
+   * Copy content of the public key file *on your local machine* `pbcopy < ~/Desktop/udacity_key.rsa.pub`
+   * Paste the copied content into the authorized_keys file on the remote server
+   * Update permissions:
+   * ```sudo chmod 700 /home/grader/.ssh```
+   * ```sudo chmod 644 /home/grader/.ssh/authorized_keys```
+   * Change the owner from root to grader: `sudo chown -R grader:grader /home/grader/.ssh`
+   * Log in via ssh using: `ssh -i ~/Desktop/udacity_key.rsa grader@35.161.147.129`
+  7. To enforce key based authentication, type `sudo nano /etc/ssh/sshd_config` and make sure the `PasswordAuthentication` line is set to no
+  8. Disable remote login of root user: `sudo nano /etc/ssh/sshd_config` and change the `linePermitRootLogin without-password` to `PermitRootLogin no`
+  9. Restart the ssh server: `sudo service ssh restart`
+  10. Install **fail2ban** to increase login security:
+   * ```sudo apt-get install fail2ban```
 
 ###5. Update all currently installed packages
   1. ```sudo apt-get update```
@@ -32,6 +49,7 @@
 ###6. Change the SSH port from 22 to 2200
   1. ```sudo nano /etc/ssh/sshd_config```
   2. Change Port to 2200
+  3. Login with: `ssh -i ~/Desktop/udacity_key.rsa grader@35.161.147.129 -p 2200`
 
 ###7. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
   1. Check if the firewall is active or inactive
@@ -104,8 +122,6 @@ def application(environ, start_response):
    * ```sudo pip install psycopg2```
    * ```sudo pip install sqlalchemy```
    * ```sudo pip install oauth2client```
-  8. Enable port 5432 in order to allow PostgreSQL to run properly
-   * ```sudo ufw allow 5432```
   9. Run the following command to test if the installation is successful and the app is running:
    * ```sudo python __init__.py```
    * If app is successfully running then deactive the virtual environment by running: `deactivate`
